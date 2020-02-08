@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/blog?useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: sunnyday
+#logging:
+#  level:
+#    root: warn
+#    com.xvyn.dao: trace
+#  pattern:
+#    console: "%d{HH:mm:ss} %-5level - %msg%n"
