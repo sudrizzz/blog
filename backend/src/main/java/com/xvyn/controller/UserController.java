@@ -14,7 +14,7 @@ import java.util.Map;
 
 @Api(tags = "用户管理")
 @RestController
-@RequestMapping("u")
+@RequestMapping("user")
 public class UserController {
 
     private UserService userService;
@@ -44,9 +44,13 @@ public class UserController {
         if (!"".equals(userName)) user.setUserName(userName);
         user.setPassword(passwordEncoded);
         user.setUpdateTime(time);
-        this.userService.updateUser(user);
+        int status = this.userService.updateUser(user);
         HashMap<String, Object> map = new HashMap<>();
-        map.put("200", "ok");
+        if (status == 1) {
+            map.put("200", "ok");
+        } else {
+            map.put("500", "update failed");
+        }
         return map;
     }
 }

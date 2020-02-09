@@ -6,11 +6,14 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @TableName("article")
-public class Article {
+public class Article implements Serializable {
+
+    private static final long serialVersionUID = 4259038306662184701L;
 
     @TableId(value = "article_id", type = IdType.AUTO)
     private int articleId;
@@ -36,5 +39,8 @@ public class Article {
     @TableField("last_edit_time")
     private String lastEditTime;
 
-    private List<String> categories;
+    @TableField("is_deleted")
+    private Integer isDeleted;
+
+    private String categories;
 }
