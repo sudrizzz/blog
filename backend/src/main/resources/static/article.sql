@@ -4,7 +4,7 @@ create table article
 		primary key,
 	title varchar(500) not null,
 	url varchar(1000) not null,
-	visit_num int default 0 not null,
+	view_num int default 0 not null,
 	content text null,
 	like_num int default 0 null,
 	img_url varchar(1000) null,
