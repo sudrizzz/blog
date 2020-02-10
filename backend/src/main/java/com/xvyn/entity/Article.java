@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Data
 @TableName("article")
@@ -22,8 +21,8 @@ public class Article implements Serializable {
 
     private String url;
 
-    @TableField("visit_num")
-    private Long visitNum;
+    @TableField("view_num")
+    private Long viewNum;
 
     private String content;
 

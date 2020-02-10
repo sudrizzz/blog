@@ -1,10 +1,8 @@
 package com.xvyn.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xvyn.entity.Article;
-import com.xvyn.entity.User;
 import com.xvyn.service.ArticleService;
-import com.xvyn.service.UserService;
-import com.xvyn.util.MD5Encode;
 import com.xvyn.util.Time;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,13 +13,21 @@ import java.util.Map;
 
 @Api(tags = "文章管理")
 @RestController
-@RequestMapping("article")
+@RequestMapping("articles")
 public class ArticleController {
 
     private ArticleService articleService;
 
     public ArticleController(ArticleService articleService) {
         this.articleService = articleService;
+    }
+
+    @ApiOperation("文章分页查询")
+    @GetMapping(value = "/")
+    @ResponseBody
+    public IPage<Article> getAllArticle(@RequestParam(defaultValue = "1") int pageNo,
+                                        @RequestParam(defaultValue = "10") int pageSize) {
+        return articleService.getAllArticle(pageNo, pageSize);
     }
 
     @ApiOperation("文章查询")

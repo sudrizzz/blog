@@ -1,11 +1,18 @@
 package com.xvyn.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xvyn.entity.Article;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface ArticleService extends IService<Article> {
+
+    /**
+     * 获取全部文章
+     * @return
+     */
+    IPage<Article> getAllArticle(int pageNo, int pageSize);
 
     /**
      * 获取文章对象

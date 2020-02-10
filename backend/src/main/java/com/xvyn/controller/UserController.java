@@ -6,7 +6,6 @@ import com.xvyn.util.MD5Encode;
 import com.xvyn.util.Time;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -23,7 +22,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @CrossOrigin
     @ApiOperation("用户名查询")
     @GetMapping(value = "{id}")
     public Map<String, Object> getUserName(@PathVariable int id) {
