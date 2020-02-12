@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Typography, Pagination, Skeleton } from 'antd';
+import { Typography, Pagination, Skeleton, Divider } from 'antd';
 import { Link } from 'react-router-dom';
 
 const { Title, Paragraph } = Typography;
@@ -28,11 +28,10 @@ class MainPage extends Component {
 
     render() {
         const articles = this.state.data.records;
-        console.log(articles);
         return (
             <div
                 style={{
-                    maxWidth: '800px',
+                    maxWidth: 800,
                     textAlign: 'left',
                     margin: 'auto',
                     padding: '1rem'
@@ -44,7 +43,7 @@ class MainPage extends Component {
                             <div
                                 className="article"
                                 key={article.articleId}
-                                style={{ padding: '2px', paddingBottom: '10px' }}
+                                style={{ padding: '2px' }}
                             >
                                 <Title>
                                     <Link
@@ -55,6 +54,7 @@ class MainPage extends Component {
                                     </Link>
                                 </Title>
                                 <Paragraph ellipsis={{ rows: 3 }}>{article.content}</Paragraph>
+                                <Divider />
                             </div>
                         )
                     })}

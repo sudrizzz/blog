@@ -3,7 +3,7 @@ import { Typography } from 'antd';
 
 const { Title, Paragraph } = Typography;
 
-class MainPage extends Component {
+class SinglePage extends Component {
     state = {
         articles: []
     }
@@ -20,7 +20,7 @@ class MainPage extends Component {
         return (
             <div
                 style={{
-                    maxWidth: '800px',
+                    maxWidth: 800,
                     textAlign: 'left',
                     margin: 'auto',
                     padding: '1rem'
@@ -32,4 +32,4 @@ class MainPage extends Component {
     }
 }
 
-export default MainPage;
+export default SinglePage;
