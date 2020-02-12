@@ -37,7 +37,6 @@ public class ArticleController {
         return articleService.getArticle(id);
     }
 
-    @CrossOrigin
     @ApiOperation("文章标题查询")
     @GetMapping(value = "{id}/title")
     public Map<Integer, Object> getTitle(@PathVariable int id) {

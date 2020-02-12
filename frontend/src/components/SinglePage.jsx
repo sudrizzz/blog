@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Typography } from 'antd';
+import '../style/SinglePage.css';
 
-const { Title, Paragraph } = Typography;
+const { Title, Text } = Typography;
 
 class SinglePage extends Component {
     state = {
@@ -12,21 +13,14 @@ class SinglePage extends Component {
         const api_call = await fetch(`/articles/${this.props.match.params.id}`);
         const data = await api_call.json();
         this.setState({ articles: data });
-        console.log(data);
     }
 
     render() {
         const article = this.state.articles;
         return (
-            <div
-                style={{
-                    maxWidth: 800,
-                    textAlign: 'left',
-                    margin: 'auto',
-                    padding: '1rem'
-                }}>
+            <div className="content">
                 <Title>{article.title}</Title>
-                <Paragraph>{article.content}</Paragraph>
+                <Text>{article.content}</Text>
             </div>
         );
     }

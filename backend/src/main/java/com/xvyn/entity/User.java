@@ -22,16 +22,6 @@ public class User implements Serializable {
 
     private String password;
 
-    @TableField("user_type")
-    private int userType;
-
     @TableField("create_time")
     private String createTime;
-
-    @TableField("update_time")
-    private String updateTime;
-
-    // 1 - deleted
-    @TableField("is_deleted")
-    private int isDeleted;
 }

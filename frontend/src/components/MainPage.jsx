@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Typography, Pagination, Skeleton, Divider } from 'antd';
 import { Link } from 'react-router-dom';
+import '../style/MainPage.css';
 
 const { Title, Paragraph } = Typography;
 
@@ -41,9 +42,8 @@ class MainPage extends Component {
                     articles.map((article) => {
                         return (
                             <div
-                                className="article"
                                 key={article.articleId}
-                                style={{ padding: '2px' }}
+                                className="article"
                             >
                                 <Title>
                                     <Link

@@ -37,7 +37,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         Article article = articleMapper.selectById(articleId);
         if (article != null) {
             article.setViewNum(article.getViewNum() + 1);
-            this.updateArticle(article);
+            updateArticle(article);
         }
         return article;
     }
@@ -63,23 +63,23 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         int  articleId = articleMapper.selectOne(queryWrapper).getArticleId();
         logger.debug("update success");
         article.setUrl("/a/" + articleId);
-        this.updateArticle(article);
+        updateArticle(article);
         return articleId;
     }
 
     @Override
     @Transactional
     public Integer deleteArticle(int articleId) {
-        Article article = this.getArticle(articleId);
+        Article article = getArticle(articleId);
         article.setIsDeleted(1);
-        return this.updateArticle(article);
+        return updateArticle(article);
     }
 
     @Override
     @Transactional
     public Integer recoverArticle(int articleId) {
-        Article article = this.getArticle(articleId);
+        Article article = getArticle(articleId);
         article.setIsDeleted(0);
-        return this.updateArticle(article);
+        return updateArticle(article);
     }
 }

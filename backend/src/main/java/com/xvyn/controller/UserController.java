@@ -41,7 +41,6 @@ public class UserController {
         User user = this.userService.getUser(id);
         if (!"".equals(userName)) user.setUserName(userName);
         user.setPassword(passwordEncoded);
-        user.setUpdateTime(time);
         int status = this.userService.updateUser(user);
         HashMap<String, Object> map = new HashMap<>();
         if (status == 1) {
