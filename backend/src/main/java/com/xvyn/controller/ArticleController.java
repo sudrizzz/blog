@@ -3,6 +3,7 @@ package com.xvyn.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xvyn.entity.Article;
 import com.xvyn.service.ArticleService;
+import com.xvyn.util.MD5Encode;
 import com.xvyn.util.Time;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +28,7 @@ public class ArticleController {
     @ResponseBody
     public IPage<Article> getAllArticle(@RequestParam(defaultValue = "1") int pageNo,
                                         @RequestParam(defaultValue = "10") int pageSize) {
+        System.out.println(MD5Encode.encodeString("a"));
         return articleService.getAllArticle(pageNo, pageSize);
     }
 

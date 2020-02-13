@@ -1,12 +1,12 @@
 package com.xvyn.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xvyn.entity.User;
 import com.xvyn.mapper.UserMapper;
 import com.xvyn.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,5 +33,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Cacheable("getUser")
     public User getUser(int userId) {
         return userMapper.selectById(userId);
+    }
+
+    @Override
+    public User getUser(String userName) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_name", userName);
+        return userMapper.selectOne(queryWrapper);
     }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Typography, Pagination, Skeleton, Divider } from 'antd';
 import { Link } from 'react-router-dom';
-import '../style/MainPage.css';
+import '../../style/MainPage.css';
 
 const { Title, Paragraph } = Typography;
 

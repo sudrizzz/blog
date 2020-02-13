@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Typography } from 'antd';
-import '../style/SinglePage.css';
+import '../../style/SinglePage.css';
 
 const { Title, Text } = Typography;
 
