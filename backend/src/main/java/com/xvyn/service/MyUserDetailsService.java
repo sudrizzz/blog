@@ -19,7 +19,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        com.xvyn.entity.User user = userService.getUser(userName);
+        com.xvyn.entity.User user = userService.findUserByUserName(userName);
         return new User(user.getUserName(), user.getPassword(), new ArrayList<>());
     }
 }

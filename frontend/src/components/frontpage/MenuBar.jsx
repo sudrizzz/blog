@@ -15,19 +15,12 @@ const MenuBar = () => {
           </Menu.Item>
           <Menu.Item key="2">
             <Link to="/about">
-              <Icon
-                type="info-circle"
-                style={{ fontSize: "20px", margin: "10px" }}
-              />
+              <Icon type="user" style={{ fontSize: "20px", margin: "10px" }} />
             </Link>
           </Menu.Item>
           <Menu.Item key="3">
-            <Icon type="user" style={{ fontSize: "20px", margin: "10px" }} />
-            {localStorage.getItem("token") == null ? (
-              <Link to="/login"></Link>
-            ) : (
-              <Link to="/homepage"></Link>
-            )}
+            <Icon type="setting" style={{ fontSize: "20px", margin: "10px" }} />
+            <Link to="/homepage"></Link>
           </Menu.Item>
         </Menu>
       </Col>

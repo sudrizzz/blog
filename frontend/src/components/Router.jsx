@@ -1,13 +1,14 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import Login from "./fontpage/Login";
-import MainPage from "./fontpage/MainPage";
-import SinglePage from "./fontpage/SinglePage";
-import Error from "./Error";
-import MenuBar from "./fontpage/MenuBar";
-import About from "./fontpage/About";
+import Login from "./frontpage/Login";
+import MainPage from "./frontpage/MainPage";
+import SinglePage from "./frontpage/SinglePage";
+import NotFound from "./status/NotFound";
+import MenuBar from "./frontpage/MenuBar";
+import About from "./frontpage/About";
 import HomePage from "./backstage/HomePage";
+import Success from "./status/Success";
 
 const Router = () => (
   <BrowserRouter>
@@ -24,10 +25,10 @@ const Router = () => (
       <Route path="/" component={MainPage} exact />
       <Route path="/login" component={Login} />
       <Route path="/articles/:id" component={SinglePage} />
-      <Route path="/articles" component={MainPage} exact />
-      <Route path="/about" component={About} exact />
+      <Route path="/about" component={About} />
       <Route path="/homepage" component={HomePage} />
-      <Route component={Error} />
+      <Route path="/success" component={Success} />
+      <Route component={NotFound} />
     </Switch>
   </BrowserRouter>
 );

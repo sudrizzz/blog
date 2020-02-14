@@ -26,5 +26,5 @@ public interface UserService extends IService<User> {
      * @param userName
      * @return
      */
-    User getUser(String userName);
+    User findUserByUserName(String userName);
 }

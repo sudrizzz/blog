@@ -42,4 +42,11 @@ public class Article implements Serializable {
     private Integer isDeleted;
 
     private String categories;
+
+    public Article(String title, String content, String imgUrl, String categories) {
+        this.title = title;
+        this.content = content;
+        this.imgUrl = imgUrl;
+        this.categories = categories;
+    }
 }

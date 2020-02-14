@@ -59,8 +59,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             return 0;
         }
         QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
-        queryWrapper.select("article_id").orderByDesc("article_id").last("limit 1");
-        int  articleId = articleMapper.selectOne(queryWrapper).getArticleId();
+        queryWrapper.orderByDesc("article_id").last("limit 1");
+        int articleId = articleMapper.selectOne(queryWrapper).getArticleId();
         logger.debug("update success");
         article.setUrl("/a/" + articleId);
         updateArticle(article);

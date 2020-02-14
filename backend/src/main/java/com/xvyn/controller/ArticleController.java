@@ -3,7 +3,6 @@ package com.xvyn.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xvyn.entity.Article;
 import com.xvyn.service.ArticleService;
-import com.xvyn.util.MD5Encode;
 import com.xvyn.util.Time;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,7 +27,6 @@ public class ArticleController {
     @ResponseBody
     public IPage<Article> getAllArticle(@RequestParam(defaultValue = "1") int pageNo,
                                         @RequestParam(defaultValue = "10") int pageSize) {
-        System.out.println(MD5Encode.encodeString("a"));
         return articleService.getAllArticle(pageNo, pageSize);
     }
 
@@ -95,15 +93,12 @@ public class ArticleController {
 
     @ApiOperation("保存文章")
     @PostMapping(value = "save")
-    public Map<String, Object> saveArticle(@RequestParam String title,
-                                           @RequestParam String content,
-                                           @RequestParam(required = false) String imgUrl,
-                                           @RequestParam(required = false) String categories) {
-        Article article = new Article();
-        article.setTitle(title);
-        article.setContent(content);
-        if (!"".equals(imgUrl)) article.setImgUrl(imgUrl);
-        if (!"".equals(categories)) article.setCategories(categories);
+    public Map<String, Object> saveArticle(@RequestBody Map<String, String> data) {
+        String title = data.get("title");
+        String content = data.get("content");
+        String imgUrl = data.get("imgUrl");
+        String categories = data.get("categories");
+        Article article = new Article(title, content, imgUrl, categories);
         article.setCreateTime(Time.getFormattedDateTime());
         int articleId = this.articleService.saveArticle(article);
         HashMap<String, Object> map = new HashMap<>();

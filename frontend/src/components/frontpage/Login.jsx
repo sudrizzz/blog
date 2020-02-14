@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Icon, Input, Button } from "antd";
+import { Form, Icon, Input, Button, message } from "antd";
 
 class NormalLoginForm extends React.Component {
   handleSubmit = e => {
@@ -11,18 +11,22 @@ class NormalLoginForm extends React.Component {
     });
   };
 
-  postData = async (data) => {
+  postData = async data => {
     const res = await fetch(`/auth`, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     });
     const json = await res.json();
-    localStorage.setItem("token", json.jwt);
-    this.props.history.push('/homepage');
-  }
+    if (json.status !== 403 && json.jwt) {
+      localStorage.setItem("token", json.jwt);
+      this.props.history.push("/homepage");
+    } else {
+      message.error("用户名或密码错误！");
+    }
+  };
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -37,6 +41,7 @@ class NormalLoginForm extends React.Component {
             rules: [{ required: true, message: "请输入用户名！" }]
           })(
             <Input
+              size="large"
               prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
               placeholder="用户名"
             />
@@ -47,6 +52,7 @@ class NormalLoginForm extends React.Component {
             rules: [{ required: true, message: "请输入密码！" }]
           })(
             <Input
+              size="large"
               prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
               type="password"
               placeholder="密码"
@@ -55,6 +61,7 @@ class NormalLoginForm extends React.Component {
         </Form.Item>
         <Form.Item>
           <Button
+            size="large"
             type="primary"
             htmlType="submit"
             className="login-form-button"
