@@ -12,6 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
 
@@ -24,8 +28,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    public IPage<Article> getAllArticle(int pageNo, int pageSize) {
-        IPage<Article> page = new Page<>(pageNo, pageSize);
+    public List<Article> getAllArticle() {
+        return articleMapper.selectList(new QueryWrapper<Article>().eq("is_deleted", 0));
+    }
+
+    @Override
+    public IPage<Article> getAllArticle(int pageNo) {
+        IPage<Article> page = new Page<>(pageNo, 10);
         QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("is_deleted", 0);
         return articleMapper.selectPage(page, queryWrapper);
@@ -52,19 +61,15 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     @Transactional
     public Integer saveArticle(Article article) {
-        article.setUrl("");
         int status = articleMapper.insert(article);
         if (1 != status) {
             logger.error("insertion failed");
             return 0;
+        } else {
+            QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
+            queryWrapper.orderByDesc("article_id").last("limit 1");
+            return articleMapper.selectOne(queryWrapper).getArticleId();
         }
-        QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByDesc("article_id").last("limit 1");
-        int articleId = articleMapper.selectOne(queryWrapper).getArticleId();
-        logger.debug("update success");
-        article.setUrl("/a/" + articleId);
-        updateArticle(article);
-        return articleId;
     }
 
     @Override
@@ -73,6 +78,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         Article article = getArticle(articleId);
         article.setIsDeleted(1);
         return updateArticle(article);
+    }
+
+    @Override
+    @Transactional
+    public Integer deleteArticleByBatchIds(Integer[] ids) {
+        List<Integer> idList = Arrays.stream(ids).collect(Collectors.toList());
+        List<Article> articleList = articleMapper.selectBatchIds(idList);
+        articleList.forEach(article -> article.setIsDeleted(1));
+        articleList.forEach(this::updateArticle);
+        return ids.length;
     }
 
     @Override

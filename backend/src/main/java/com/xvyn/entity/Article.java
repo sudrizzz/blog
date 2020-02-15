@@ -11,15 +11,12 @@ import java.io.Serializable;
 @Data
 @TableName("article")
 public class Article implements Serializable {
-
-    private static final long serialVersionUID = 4259038306662184701L;
+    private static final long serialVersionUID = -5354222284737054290L;
 
     @TableId(value = "article_id", type = IdType.AUTO)
     private int articleId;
 
     private String title;
-
-    private String url;
 
     @TableField("view_num")
     private Long viewNum;

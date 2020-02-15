@@ -31,7 +31,7 @@ class HomePage extends Component {
         <div className="sideBar">
           {localStorage.getItem("token") !== null ? (
             <Sider trigger={null} collapsible style={{ float: "left" }}>
-              <Menu mode="inline">
+              <Menu mode="inline" defaultOpenKeys="1">
                 <SubMenu
                   key="1"
                   title={
@@ -42,7 +42,13 @@ class HomePage extends Component {
                   }
                 >
                   <Menu.Item key="11" onClick={this.handleSelKey}>
-                    新增文章&nbsp;&nbsp;
+                    新增&nbsp;&nbsp;
+                  </Menu.Item>
+                  <Menu.Item key="12" onClick={this.handleSelKey}>
+                    总览&nbsp;&nbsp;
+                  </Menu.Item>
+                  <Menu.Item key="13" onClick={this.handleSelKey}>
+                    回收站&nbsp;&nbsp;
                   </Menu.Item>
                 </SubMenu>
                 <SubMenu

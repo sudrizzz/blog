@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.xvyn.entity.Article;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface ArticleService extends IService<Article> {
 
@@ -12,7 +14,13 @@ public interface ArticleService extends IService<Article> {
      * 获取全部文章
      * @return
      */
-    IPage<Article> getAllArticle(int pageNo, int pageSize);
+    List<Article> getAllArticle();
+
+    /**
+     * 分页获取全部文章
+     * @return
+     */
+    IPage<Article> getAllArticle(int pageNo);
 
     /**
      * 获取文章对象
@@ -41,6 +49,13 @@ public interface ArticleService extends IService<Article> {
      * @return
      */
     Integer deleteArticle(int articleId);
+
+    /**
+     * 批量删除文章
+     * @param ids
+     * @return
+     */
+    Integer deleteArticleByBatchIds(Integer[] ids);
 
     /**
      * 恢复被删除的文章

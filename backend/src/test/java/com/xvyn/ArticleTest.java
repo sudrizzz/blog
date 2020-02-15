@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ArticleTest {
@@ -22,5 +24,11 @@ public class ArticleTest {
         queryWrapper.select("article_id").orderByDesc("article_id").last("limit 1");
         int articleId = articleMapper.selectOne(queryWrapper).getArticleId();
         System.out.println(articleId);
+    }
+
+    @Test
+    public void selectAll() {
+        List<Article> articles = articleMapper.selectList(new QueryWrapper<Article>().eq("is_deleted", 0));
+        articles.forEach(System.out::println);
     }
 }

@@ -7,12 +7,13 @@ const { Title, Paragraph } = Typography;
 
 class MainPage extends Component {
   state = {
-    data: []
+    data: [],
+    current: 1
   };
 
   componentDidMount = async () => {
     const json = localStorage.getItem("data");
-    if (json != null) {
+    if (json != null && JSON.parse(json).current === this.state.current) {
       const data = JSON.parse(json);
       this.setState({ data: data });
     } else {
@@ -27,9 +28,17 @@ class MainPage extends Component {
     localStorage.setItem("data", data);
   };
 
+  onChange = async page => {
+    const api_call = await fetch(`/articles/?pageNo=${page}`);
+    const data = await api_call.json();
+    this.setState({
+      current: page,
+      data: data
+    });
+  };
+
   render() {
-    const articles = this.state.data.records;
-    const total = this.state.data.total;
+    const { data, current } = this.state;
     return (
       <div
         style={{
@@ -42,7 +51,7 @@ class MainPage extends Component {
         {this.state.data.length === 0 ? (
           <Skeleton active />
         ) : (
-          articles.map(article => {
+          data.records.map(article => {
             return (
               <div key={article.articleId} className="article">
                 <Title>
@@ -61,8 +70,9 @@ class MainPage extends Component {
         )}
         <div>
           <Pagination
-            defaultCurrent={1}
-            total={total}
+            current={current}
+            total={data.total}
+            onChange={this.onChange}
             style={{ textAlign: "center", paddingBottom: "1rem" }}
           />
         </div>
