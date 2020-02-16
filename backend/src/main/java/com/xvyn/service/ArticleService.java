@@ -23,6 +23,12 @@ public interface ArticleService extends IService<Article> {
     IPage<Article> getAllArticle(int pageNo);
 
     /**
+     * 获取文章总数
+     * @return
+     */
+    Integer getArticleCounts();
+
+    /**
      * 获取文章对象
      * @param articleId
      * @return

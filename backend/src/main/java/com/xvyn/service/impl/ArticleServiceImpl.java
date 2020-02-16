@@ -41,6 +41,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
+    public Integer getArticleCounts() {
+        return articleMapper.selectCount(new QueryWrapper<Article>().eq("is_deleted", 0));
+    }
+
+    @Override
     @Transactional
     public Article getArticle(int articleId) {
         Article article = articleMapper.selectById(articleId);

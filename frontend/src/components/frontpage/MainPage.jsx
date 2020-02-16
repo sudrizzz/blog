@@ -12,8 +12,15 @@ class MainPage extends Component {
   };
 
   componentDidMount = async () => {
+    const req = await fetch(`/articles/counts`);
+    const res = await req.json();
+    const counts = res.counts;
     const json = localStorage.getItem("data");
-    if (json != null && JSON.parse(json).current === this.state.current) {
+    if (
+      json != null &&
+      json.total === counts &&
+      JSON.parse(json).current === this.state.current
+    ) {
       const data = JSON.parse(json);
       this.setState({ data: data });
     } else {

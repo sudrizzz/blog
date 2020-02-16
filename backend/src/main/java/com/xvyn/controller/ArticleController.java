@@ -38,6 +38,16 @@ public class ArticleController {
         return articleService.getAllArticle();
     }
 
+    @ApiOperation("获取所有文章")
+    @GetMapping(value = "/counts")
+    @ResponseBody
+    public Map<String, Object> getArticleCounts() {
+        int counts = articleService.getArticleCounts();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("counts", counts);
+        return map;
+    }
+
     @ApiOperation("文章查询")
     @GetMapping(value = "{id}")
     @ResponseBody
