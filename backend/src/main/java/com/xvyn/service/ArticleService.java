@@ -62,5 +62,12 @@ public interface ArticleService extends IService<Article> {
      * @param articleId
      * @return
      */
-    Integer recoverArticle(int articleId);
+    Integer recycleArticle(int articleId);
+
+    /**
+     * 批量恢复被删除的文章
+     * @param ids
+     * @return
+     */
+    Integer recycleArticleByBatchIds(Integer[] ids);
 }

@@ -101,18 +101,27 @@ public class ArticleController {
         String content = data.get("content");
         String imgUrl = data.get("imgUrl");
         String categories = data.get("categories");
-        Article article = new Article(title, content, imgUrl, categories);
-        article.setCreateTime(Time.getFormattedDateTime());
-        int articleId = this.articleService.saveArticle(article);
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("articleId", articleId);
-        return map;
+        if ("".equals(title) || "".equals(content)) {
+            return Response.build(0);
+        } else {
+            Article article = new Article(title, content, imgUrl, categories);
+            article.setCreateTime(Time.getFormattedDateTime());
+            int status = this.articleService.saveArticle(article);
+            return Response.build(status);
+        }
     }
 
     @ApiOperation("回收文章")
-    @GetMapping(value = "recover/{id}")
-    public Map<String, Object> recoverArticle(@PathVariable int id) {
-        int status = articleService.recoverArticle(id);
+    @PostMapping(value = "recycle/{id}")
+    public Map<String, Object> recycleArticle(@PathVariable int id) {
+        int status = articleService.recycleArticle(id);
+        return Response.build(status);
+    }
+
+    @ApiOperation("回收文章")
+    @PostMapping(value = "recycle/batch")
+    public Map<String, Object> recycleArticleByBatchIds(@RequestBody Map<String, Integer[]> data) {
+        int status = articleService.recycleArticleByBatchIds(data.get("ids"));
         return Response.build(status);
     }
 }

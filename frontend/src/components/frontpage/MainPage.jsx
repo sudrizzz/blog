@@ -33,7 +33,7 @@ class MainPage extends Component {
     const data = await api_call.json();
     this.setState({
       current: page,
-      data: data
+      data
     });
   };
 

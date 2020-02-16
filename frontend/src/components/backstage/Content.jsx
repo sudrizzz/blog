@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import AddArticle from "./AddArticle";
 import ArticleManagement from "./ArticleManagement";
+import ArticleRecyclement from "./ArticleRecyclement";
 
 class Content extends Component {
   render() {
@@ -11,7 +12,7 @@ class Content extends Component {
       case "12":
         return <ArticleManagement />;
       case "13":
-        return <AddArticle />;
+        return <ArticleRecyclement />;
       default:
         return <AddArticle />;
     }

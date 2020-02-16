@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { Input, Form, Button, message } from "antd";
+
 const { TextArea } = Input;
 
 class AddArticle extends Component {
@@ -17,26 +18,30 @@ class AddArticle extends Component {
     this.setState({ content: event.target.value });
   };
 
-  submit = async e => {
+  onSubmit = e => {
     e.preventDefault();
-    let data = {
+    const data = {
       title: this.state.title,
       content: this.state.content
     };
-    const res = await fetch(`/articles/save`, {
+    fetch(`/articles/save`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         auth: "Bearer " + localStorage.getItem("token")
       },
       body: JSON.stringify(data)
+    }).then(res => {
+      if (res.status === 200) {
+        message.success("保存成功");
+        this.setState({
+          title: "",
+          content: ""
+        });
+      } else {
+        message.error("保存失败");
+      }
     });
-    const json = await res.json();
-    if (json.status !== 403) {
-      this.props.history.push("/success");
-    } else {
-      message.error("用户未登录或信息已更改，请重新登录！");
-    }
   };
 
   render() {
@@ -48,25 +53,31 @@ class AddArticle extends Component {
           height: "100%",
           margin: "auto",
           paddingRight: 200,
-          paddingTop: 32
+          paddingTop: 24
         }}
       >
-        <Form onSubmit={this.submit}>
-          <Input
-            size="large"
-            placeholder="标题"
-            onChange={this.handleTitleChange}
-          />
-          <div className="editor" style={{ paddingTop: 32, paddingBottom: 32 }}>
+        <Form onSubmit={this.onSubmit}>
+          <Form.Item>
+            <Input
+              size="large"
+              placeholder="标题"
+              value={this.state.title}
+              onChange={this.handleTitleChange}
+            />
+          </Form.Item>
+          <Form.Item>
             <TextArea
               placeholder="正文"
+              value={this.state.content}
               onChange={this.handleContentChange}
               style={{ height: 400 }}
             />
-          </div>
-          <Button type="primary" size="large" htmlType="submit">
-            保存
-          </Button>
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              保存
+            </Button>
+          </Form.Item>
         </Form>
       </div>
     );

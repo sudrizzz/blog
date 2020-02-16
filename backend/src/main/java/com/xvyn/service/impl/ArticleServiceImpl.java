@@ -29,14 +29,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public List<Article> getAllArticle() {
-        return articleMapper.selectList(new QueryWrapper<Article>().eq("is_deleted", 0));
+        return articleMapper.selectList(new QueryWrapper<Article>().orderByDesc("article_id"));
     }
 
     @Override
     public IPage<Article> getAllArticle(int pageNo) {
         IPage<Article> page = new Page<>(pageNo, 10);
         QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("is_deleted", 0);
+        queryWrapper.eq("is_deleted", 0).orderByDesc("article_id");
         return articleMapper.selectPage(page, queryWrapper);
     }
 
@@ -92,9 +92,19 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     @Transactional
-    public Integer recoverArticle(int articleId) {
+    public Integer recycleArticle(int articleId) {
         Article article = getArticle(articleId);
         article.setIsDeleted(0);
         return updateArticle(article);
+    }
+
+    @Override
+    @Transactional
+    public Integer recycleArticleByBatchIds(Integer[] ids) {
+        List<Integer> idList = Arrays.stream(ids).collect(Collectors.toList());
+        List<Article> articleList = articleMapper.selectBatchIds(idList);
+        articleList.forEach(article -> article.setIsDeleted(0));
+        articleList.forEach(this::updateArticle);
+        return ids.length;
     }
 }
