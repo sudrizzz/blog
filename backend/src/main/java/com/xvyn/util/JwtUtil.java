@@ -1,6 +1,7 @@
 package com.xvyn.util;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +17,7 @@ public class JwtUtil {
 
     private String SECRET_KEY = "secret";
 
-    public String extractUsername(String token) {
+    public String extractUsername(String token) throws ExpiredJwtException {
         return extractClaim(token, Claims::getSubject);
     }
 
@@ -24,11 +25,11 @@ public class JwtUtil {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) throws ExpiredJwtException {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
-    private Claims extractAllClaims(String token) {
+    private Claims extractAllClaims(String token) throws ExpiredJwtException {
         return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
     }
 

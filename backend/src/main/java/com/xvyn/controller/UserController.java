@@ -2,7 +2,7 @@ package com.xvyn.controller;
 
 import com.xvyn.entity.User;
 import com.xvyn.service.UserService;
-import com.xvyn.util.MD5Encode;
+import com.xvyn.util.Response;
 import com.xvyn.util.Time;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,20 +34,17 @@ public class UserController {
     @ApiOperation("用户信息更新")
     @PostMapping(value = "{id}")
     public Map<String, Object> updateUser(@PathVariable int id,
-                                          @RequestParam(required = false) String userName,
-                                          @RequestParam String password) {
-        String passwordEncoded = MD5Encode.encodeString(password);
-        String time = Time.getFormattedDateTime();
+                                          @RequestBody Map<String, String> data) {
+        String original = data.get("original").toUpperCase();
+        String password = data.get("password").toUpperCase();
         User user = this.userService.getUser(id);
-        if (!"".equals(userName)) user.setUserName(userName);
-        user.setPassword(passwordEncoded);
-        int status = this.userService.updateUser(user);
-        HashMap<String, Object> map = new HashMap<>();
-        if (status == 1) {
-            map.put("200", "ok");
+        if (user.getPassword().equals(original)) {
+            user.setPassword(password);
+            user.setUpdateTime(Time.getFormattedDateTime());
+            int status = this.userService.updateUser(user);
+            return Response.build(status);
         } else {
-            map.put("500", "update failed");
+            return Response.build(0);
         }
-        return map;
     }
 }

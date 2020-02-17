@@ -16,8 +16,20 @@ class HomePage extends Component {
   }
 
   checkToken = () => {
-    if (!localStorage.getItem("token")) {
-      this.props.history.push("/login");
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetch(`/checkToken`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          auth: "Bearer " + token
+        }
+      }).then(res => {
+        if (res.status === 403) {
+          localStorage.removeItem("token");
+          this.props.history.push("/login");
+        }
+      });
     }
   };
 
@@ -31,7 +43,11 @@ class HomePage extends Component {
         <div className="sideBar">
           {localStorage.getItem("token") !== null ? (
             <Sider trigger={null} collapsible style={{ float: "left" }}>
-              <Menu mode="inline" defaultOpenKeys="1">
+              <Menu
+                mode="inline"
+                defaultOpenKeys={["1"]}
+                defaultSelectedKeys={["11"]}
+              >
                 <SubMenu
                   key="1"
                   title={

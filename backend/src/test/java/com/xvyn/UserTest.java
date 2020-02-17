@@ -32,7 +32,7 @@ public class UserTest {
         User user = new User();
         user.setUserName("Lili");
         user.setPassword(MD5Encode.encodeString("a"));
-        user.setCreateTime(Time.getFormattedDateTime());
+        user.setUpdateTime(Time.getFormattedDateTime());
         int rows = userMapper.insert(user);
         System.out.println("影响行数" + rows);
     }

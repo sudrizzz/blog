@@ -22,6 +22,6 @@ public class User implements Serializable {
 
     private String password;
 
-    @TableField("create_time")
-    private String createTime;
+    @TableField("update_time")
+    private String updateTime;
 }
