@@ -30,6 +30,8 @@ class HomePage extends Component {
           this.props.history.push("/login");
         }
       });
+    } else {
+      this.props.history.push("/login");
     }
   };
 

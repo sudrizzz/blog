@@ -69,7 +69,11 @@ class MainPage extends Component {
                     {article.title}
                   </Link>
                 </Title>
-                <Paragraph ellipsis={{ rows: 3 }}>{article.content}</Paragraph>
+                <Paragraph ellipsis={{ rows: 3 }}>
+                  <div
+                    dangerouslySetInnerHTML={{ __html: article.content }}
+                  ></div>
+                </Paragraph>
                 <Divider />
               </div>
             );

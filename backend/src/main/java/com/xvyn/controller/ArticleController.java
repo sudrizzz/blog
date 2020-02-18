@@ -108,7 +108,7 @@ public class ArticleController {
     @PostMapping(value = "save")
     public Map<String, Object> saveArticle(@RequestBody Map<String, String> data) {
         String title = data.get("title");
-        String content = data.get("content");
+        String content = data.get("content").replace("\n", "<br />");
         String imgUrl = data.get("imgUrl");
         String categories = data.get("categories");
         if ("".equals(title) || "".equals(content)) {
