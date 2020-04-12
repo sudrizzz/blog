@@ -14,13 +14,13 @@ public interface ArticleService extends IService<Article> {
      * 获取全部文章
      * @return
      */
-    List<Article> getAllArticle();
+    List<Article> getAllArticles();
 
     /**
      * 分页获取全部文章
      * @return
      */
-    IPage<Article> getAllArticle(int pageNo);
+    IPage<Article> getAllArticles(int pageNo);
 
     /**
      * 获取文章总数

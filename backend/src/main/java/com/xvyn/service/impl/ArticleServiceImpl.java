@@ -28,12 +28,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    public List<Article> getAllArticle() {
+    public List<Article> getAllArticles() {
         return articleMapper.selectList(new QueryWrapper<Article>().orderByDesc("article_id"));
     }
 
     @Override
-    public IPage<Article> getAllArticle(int pageNo) {
+    public IPage<Article> getAllArticles(int pageNo) {
         IPage<Article> page = new Page<>(pageNo, 10);
         QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("is_deleted", 0).orderByDesc("article_id");

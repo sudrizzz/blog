@@ -3,7 +3,7 @@ import { Typography, Pagination, Skeleton, Divider } from "antd";
 import { Link } from "react-router-dom";
 import "../../style/MainPage.css";
 
-const { Title, Paragraph } = Typography;
+const { Title, Text, Paragraph } = Typography;
 
 class MainPage extends Component {
   state = {
@@ -58,27 +58,28 @@ class MainPage extends Component {
         {this.state.data.length === 0 ? (
           <Skeleton active />
         ) : (
-          data.records.map(article => {
-            return (
-              <div key={article.articleId} className="article">
-                <Title>
-                  <Link
-                    to={`articles/${article.articleId}`}
-                    style={{ color: "black" }}
-                  >
-                    {article.title}
-                  </Link>
-                </Title>
-                <Paragraph ellipsis={{ rows: 3 }}>
-                  <div
-                    dangerouslySetInnerHTML={{ __html: article.content }}
-                  ></div>
-                </Paragraph>
-                <Divider />
-              </div>
-            );
-          })
-        )}
+            data.records.map(article => {
+              return (
+                <div key={article.articleId} className="article">
+                  <Title>
+                    <Link
+                      to={`articles/${article.articleId}`}
+                      style={{ color: "black" }}
+                    >
+                      {article.title}
+                    </Link>
+                  </Title>
+                  <Text><div style={{ paddingBottom: "19px", textAlign: "right" }}>{article.createTime}</div></Text>
+                  <Paragraph ellipsis={{ rows: 3 }}>
+                    <div
+                      dangerouslySetInnerHTML={{ __html: article.content }}
+                    ></div>
+                  </Paragraph>
+                  <Divider />
+                </div>
+              );
+            })
+          )}
         <div>
           <Pagination
             current={current}

@@ -28,14 +28,14 @@ public class ArticleController {
     @GetMapping(value = "/")
     @ResponseBody
     public IPage<Article> getAllArticle(@RequestParam(defaultValue = "1") int pageNo) {
-        return articleService.getAllArticle(pageNo);
+        return articleService.getAllArticles(pageNo);
     }
 
     @ApiOperation("获取所有文章")
     @GetMapping(value = "/all")
     @ResponseBody
     public List<Article> getAllArticle() {
-        return articleService.getAllArticle();
+        return articleService.getAllArticles();
     }
 
     @ApiOperation("获取所有文章")

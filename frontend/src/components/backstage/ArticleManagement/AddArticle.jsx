@@ -24,6 +24,7 @@ class AddArticle extends Component {
       title: this.state.title,
       content: this.state.content
     };
+    message.loading({ content: '保存中...', key: data.title });
     fetch(`/articles/save`, {
       method: "POST",
       headers: {
@@ -33,13 +34,13 @@ class AddArticle extends Component {
       body: JSON.stringify(data)
     }).then(res => {
       if (res.status === 200) {
-        message.success("保存成功");
+        message.success({ content: '保存成功', key: data.title, duration: 2 });
         this.setState({
           title: "",
           content: ""
         });
       } else {
-        message.error("保存失败");
+        message.error({ content: '保存失败', key: data.title });
       }
     });
   };

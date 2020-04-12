@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Typography } from "antd";
 import "../../style/SinglePage.css";
 
-const { Title, Text } = Typography;
+const { Title, Text, Paragraph } = Typography;
 
 class SinglePage extends Component {
   state = {
@@ -20,9 +20,12 @@ class SinglePage extends Component {
     return (
       <div className="content">
         <Title>{article.title}</Title>
-        <Text>
-          <div dangerouslySetInnerHTML={{ __html: article.content }}></div>
-        </Text>
+        <Text><div style={{ paddingBottom: "19px", textAlign: "right" }}>{article.createTime}</div></Text>
+        <Paragraph>
+          <div style={{ fontFamily: "Microsoft Yahei", fontSize: "16px", color: "#000000" }}
+            dangerouslySetInnerHTML={{ __html: article.content }}>
+          </div>
+        </Paragraph>
       </div>
     );
   }
